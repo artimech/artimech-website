@@ -1,0 +1,148 @@
+---
+title: 'The art of minimal AI architectures'
+publishedAt: '2025-04-22'
+summary: 'Why simpler models often outperform complex ones in production, and practical guidelines for building minimal AI systems.'
+---
+
+In an industry obsessed with the latest breakthrough models and architectural innovations, there's a quiet revolution happening: engineers are discovering that simpler models often outperform their complex counterparts in real-world production environments.
+
+This isn't about being anti-innovation. It's about being pro-deployment.
+
+## The Complexity Trap
+
+The machine learning community has developed a dangerous habit: conflating research novelty with production utility. We benchmark models on academic datasets, celebrate parameter counts, and chase state-of-the-art results—often ignoring the constraints that matter most in production:
+
+- **Latency requirements**: Your 10B parameter model might achieve 0.3% better accuracy, but can it respond in under 50ms?
+- **Resource constraints**: That transformer ensemble looks impressive until you see the monthly GPU bill
+- **Interpretability needs**: Complex models become black boxes exactly when transparency matters most
+- **Maintenance overhead**: Every architectural component is a potential failure point
+
+## What Minimal Means
+
+Minimal doesn't mean underpowered. It means intentional.
+
+A minimal AI architecture:
+1. **Solves the actual problem** (not the hypothetical problem)
+2. **Uses the simplest approach** that meets requirements
+3. **Prioritizes debuggability** over sophistication
+4. **Optimizes for the bottleneck** (usually data, not model capacity)
+
+## Case Study: Document Classification
+
+Recently, we helped a legal tech company replace their complex document classification system. The existing solution was impressive on paper:
+
+- **Architecture**: BERT-large + custom attention layers + ensemble voting
+- **Parameters**: 340M across the ensemble
+- **Training time**: 12 hours per model
+- **Inference latency**: 2.3 seconds per document
+- **Accuracy**: 94.2%
+
+The replacement was almost embarrassingly simple:
+
+- **Architecture**: Fine-tuned DistilBERT + linear classifier
+- **Parameters**: 66M total
+- **Training time**: 45 minutes
+- **Inference latency**: 180ms per document
+- **Accuracy**: 93.8%
+
+Result: 12x faster inference, 5x lower costs, 0.4% accuracy drop that didn't impact the business metric that actually mattered (user productivity).
+
+## Practical Guidelines
+
+### Start with Linear Models
+
+Always begin with the simplest approach:
+
+```python
+# Don't start here
+class ComplexAttentionModel(nn.Module):
+    def __init__(self):
+        self.transformer = BertModel.from_pretrained('bert-large')
+        self.attention = MultiHeadAttention(1024, 16)
+        self.classifier = ComplexClassifier()
+
+# Start here
+from sklearn.linear_model import LogisticRegression
+baseline = LogisticRegression()
+baseline.fit(X_train, y_train)
+```
+
+You'll be surprised how often this baseline is all you need.
+
+### Embrace Feature Engineering
+
+Modern ML practitioners often skip feature engineering, assuming models will learn everything from raw data. This is backwards.
+
+Good features make simple models powerful:
+
+```python
+# Instead of feeding raw text to BERT
+def extract_features(document):
+    return {
+        'length': len(document),
+        'entity_count': count_entities(document),
+        'formality_score': calculate_formality(document),
+        'key_phrases': extract_key_phrases(document)
+    }
+```
+
+### Measure What Matters
+
+Academic metrics rarely align with business impact:
+
+- **Accuracy** vs. **User task completion rate**
+- **F1 score** vs. **Revenue impact**
+- **Perplexity** vs. **User satisfaction**
+
+Optimize for the metric that actually moves your business.
+
+### Design for Debugging
+
+When your model fails in production (not if, when), you need to understand why:
+
+```python
+# Good: Interpretable pipeline
+def classify_document(text):
+    features = extract_interpretable_features(text)
+    prediction = model.predict(features)
+    confidence = model.predict_proba(features)
+    
+    return {
+        'prediction': prediction,
+        'confidence': confidence,
+        'feature_importance': get_feature_importance(features),
+        'decision_path': model.decision_path(features)
+    }
+```
+
+## The Minimal Stack
+
+Our typical production AI stack:
+
+1. **Data processing**: Pandas + simple preprocessing
+2. **Feature engineering**: Domain-specific feature extractors
+3. **Models**: Logistic Regression → Random Forest → Fine-tuned small language models
+4. **Serving**: FastAPI + Redis caching
+5. **Monitoring**: Simple logging + business metric tracking
+
+No Kubernetes, no MLflow, no feature stores. Just reliable components that solve the actual problem.
+
+## The Resistance
+
+You'll face pushback for choosing simplicity:
+
+- "But what about scale?" (Most problems don't need massive scale)
+- "This isn't innovative enough" (Innovation that doesn't ship isn't innovation)
+- "The research says X is better" (Research optimizes for different constraints)
+
+Stay focused on what matters: solving the problem reliably, efficiently, and maintainably.
+
+## Conclusion
+
+The best AI architecture is the simplest one that meets your requirements. Everything else is vanity.
+
+In a field obsessed with complexity, choosing simplicity is a radical act. It's also the most practical one.
+
+---
+
+*Building AI systems that actually work? We specialize in minimal, effective architectures. [Let's talk](mailto:hello@artimech.com).* 

@@ -1,42 +1,108 @@
-# Portfolio Blog Starter
+# Artimech Landing Page
 
-This is a porfolio site template complete with a blog. Includes:
+A minimal, modern landing page for artimech.com - an AI/ML Engineering Studio.
 
-- MDX and Markdown support
-- Optimized for SEO (sitemap, robots, JSON-LD schema)
-- RSS Feed
-- Dynamic OG images
-- Syntax highlighting
-- Tailwind v4
-- Vercel Speed Insights / Web Analytics
-- Geist font
+## Design Philosophy
 
-## Demo
+This landing page embodies an extremely minimal and modern design aesthetic that appears "low effort" yet sophisticated. The design prioritizes:
 
-https://portfolio-blog-starter.vercel.app
+- **Minimalism**: Clean, uncluttered layout with abundant whitespace
+- **Typography-focused**: Uses Crimson Pro (serif) as the primary font with JetBrains Mono for technical accents
+- **Monochrome palette**: Primarily uses shades of gray, black, and white
+- **Subtle interactions**: Gentle hover effects and transitions
+- **Mobile-first**: Fully responsive design for all screen sizes
+- **Minimal branding**: Company name appears only in the About section, maintaining a clean aesthetic
 
-## How to Use
+## Site Structure
 
-You can choose from one of the following two methods to use this repository:
+### Main Pages
+1. **Home (/)**: Main landing page with hero, services, about, and featured blog posts
+2. **Blog (/blog)**: Complete blog index listing all posts
 
-### One-Click Deploy
+### Blog Posts
+3. **Scaling ML Inference** (/blog/scaling-ml-inference-real-time-recommendations): Case study on reducing latency and costs for e-commerce recommendations
+4. **Minimal AI Architectures** (/blog/art-minimal-ai-architectures): Thoughts on why simpler models outperform complex ones in production
+5. **Prototype to Production** (/blog/prototype-production-30-days): Case study on rapid deployment of computer vision for manufacturing quality control
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+All blog posts feature:
+- Realistic, detailed content based on actual AI/ML engineering challenges
+- Consistent minimal design aesthetic
+- Proper navigation between posts and sections
+- Technical depth appropriate for the target audience
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/solutions/blog&project-name=blog&repository-name=blog)
+## Features
 
-### Clone and Deploy
+- **Clean Navigation**: Minimal header with logo and blog link only
+- **Modern Link Styling**: No traditional blue underlines; links have subtle hover effects with color transitions
+- **Responsive Design**: Optimized for all screen sizes
+- **Static Export Ready**: Configured for deployment to any static hosting service
+- **Minimal Branding**: Company name referenced only in About section as "Artificial Mechanics"
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [pnpm](https://pnpm.io/installation) to bootstrap the example:
+## Tech Stack
+
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type safety and better developer experience
+- **Tailwind CSS** - Utility-first CSS framework
+- **Static Export** - Configured for deployment to any static hosting service
+
+## Getting Started
+
+### Development
 
 ```bash
-pnpm create next-app --example https://github.com/vercel/examples/tree/main/solutions/blog blog
+npm run dev
 ```
 
-Then, run Next.js in development mode:
+Visit [http://localhost:3000](http://localhost:3000) to view the site.
+
+### Build
 
 ```bash
-pnpm dev
+npm run build
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/templates) ([Documentation](https://nextjs.org/docs/app/building-your-application/deploying)).
+Creates an optimized production build with static export in the `out` folder.
+
+### Deployment
+
+The site is configured for static export and can be deployed to:
+- Vercel
+- Netlify  
+- GitHub Pages
+- Any static hosting service
+
+Simply upload the contents of the `out` folder after running `npm run build`.
+
+## Project Structure
+
+```
+src/
+  app/
+    layout.tsx                                        # Root layout with metadata
+    page.tsx                                         # Main landing page
+    globals.css                                      # Global styles and fonts
+    blog/
+      page.tsx                                       # Blog index page
+      scaling-ml-inference-real-time-recommendations/
+        page.tsx                                     # Case study: ML inference optimization
+      art-minimal-ai-architectures/
+        page.tsx                                     # Thoughts: Simple vs complex models
+      prototype-production-30-days/
+        page.tsx                                     # Case study: Rapid CV deployment
+public/
+  logo.png                                           # Company logo
+next.config.ts                                       # Next.js configuration
+cursorrules.md                                       # Design guidelines
+```
+
+## Content Strategy
+
+The blog posts demonstrate expertise through:
+- **Technical depth**: Realistic scenarios with specific metrics and constraints
+- **Practical insights**: Actionable lessons learned from real projects
+- **Minimal presentation**: Content-focused design without unnecessary embellishment
+- **Professional tone**: Confident but not boastful, technical but accessible
+
+## Design Guidelines
+
+Refer to `cursorrules.md` for detailed design guidelines and content strategy that informed this implementation.

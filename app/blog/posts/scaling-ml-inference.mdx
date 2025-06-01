@@ -1,0 +1,88 @@
+---
+title: 'Scaling ML inference for real-time recommendations'
+publishedAt: '2025-05-15'
+summary: 'How we reduced recommendation latency by 80% and infrastructure costs by 60% through intelligent caching and model distillation.'
+---
+
+Real-time recommendation systems are deceptively complex. What appears as an instant product suggestion to a user involves orchestrating multiple models, data pipelines, and caching layers—all while maintaining sub-100ms response times.
+
+When a major e-commerce client approached us with deteriorating recommendation performance, we discovered their system was buckling under its own sophistication.
+
+## The Challenge
+
+The existing system was processing 50,000 requests per second across 2M+ products, with each recommendation requiring:
+- User embedding lookup (20ms)
+- Item similarity computation (45ms) 
+- Ranking model inference (30ms)
+- Business rule filtering (15ms)
+
+Total latency: 110ms average, with p99 exceeding 300ms.
+
+Infrastructure costs had grown to $180k/month, with 80% spent on GPU instances running barely-optimized models.
+
+## The Solution
+
+Rather than throwing more hardware at the problem, we implemented a three-tier optimization strategy:
+
+### 1. Intelligent Caching Architecture
+
+We introduced a hierarchical caching system that exploited recommendation patterns:
+
+```python
+# User behavior clustering for cache warming
+user_clusters = cluster_users_by_behavior(historical_interactions)
+cache_warm_popular_items_by_cluster(user_clusters)
+
+# Real-time cache with smart eviction
+@cache_with_ttl(ttl_seconds=300)
+def get_recommendations(user_id, context):
+    return generate_recommendations(user_id, context)
+```
+
+This reduced cold starts by 85% and cut average response time to 65ms.
+
+### 2. Model Distillation Pipeline
+
+We compressed the ensemble of 5 heavyweight models into a single distilled model:
+
+- **Teacher ensemble**: 5 models, 2.3GB total
+- **Distilled student**: Single model, 140MB
+- **Performance retention**: 97.2% of original accuracy
+- **Inference speedup**: 12x faster
+
+The distillation process preserved the ensemble's decision boundaries while dramatically reducing computational overhead.
+
+### 3. Adaptive Batching
+
+Instead of processing requests individually, we implemented dynamic batching that adapts to traffic patterns:
+
+```python
+def adaptive_batch_processor():
+    batch_size = calculate_optimal_batch_size(current_qps)
+    batch = collect_requests(max_size=batch_size, max_wait_ms=10)
+    return process_batch_inference(batch)
+```
+
+This improved GPU utilization from 23% to 78% while maintaining latency requirements.
+
+## Results
+
+After 6 weeks of implementation and optimization:
+
+- **Latency**: 110ms → 22ms (80% reduction)
+- **Infrastructure costs**: $180k/month → $72k/month (60% reduction)
+- **Throughput**: 50k RPS → 125k RPS with same hardware
+- **Model accuracy**: Maintained 97.2% of original performance
+
+## Key Insights
+
+1. **Profile before optimizing**: Most "performance problems" are actually architectural problems
+2. **Cache intelligence matters**: Generic caching helps; behavioral caching transforms
+3. **Model complexity ≠ Model quality**: Often simpler models perform just as well in production
+4. **Measure what matters**: Latency percentiles tell a different story than averages
+
+The real lesson? Sometimes the best way to scale is to step back and question whether you need to scale at all.
+
+---
+
+*Need help optimizing your ML infrastructure? We've helped dozens of companies achieve similar results. [Get in touch](mailto:hello@artimech.com).* 

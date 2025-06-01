@@ -1,25 +1,30 @@
 import './global.css'
 import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import { JetBrains_Mono } from 'next/font/google'
 import { Navbar } from './components/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Next.js Portfolio Starter',
-    template: '%s | Next.js Portfolio Starter',
+    default: 'Artimech - AI/ML Engineering Studio',
+    template: '%s | Artimech',
   },
-  description: 'This is my portfolio.',
+  description: 'Intelligent engineering. We build AI/ML systems that work. Clean, efficient, and purpose-built for modern problems.',
   openGraph: {
-    title: 'My Portfolio',
-    description: 'This is my portfolio.',
+    title: 'Artimech - AI/ML Engineering Studio',
+    description: 'Intelligent engineering. We build AI/ML systems that work. Clean, efficient, and purpose-built for modern problems.',
     url: baseUrl,
-    siteName: 'My Portfolio',
+    siteName: 'Artimech',
     locale: 'en_US',
     type: 'website',
   },
@@ -36,7 +41,7 @@ export const metadata: Metadata = {
   },
 }
 
-const cx = (...classes) => classes.filter(Boolean).join(' ')
+const cx = (...classes: (string | undefined)[]) => classes.filter(Boolean).join(' ')
 
 export default function RootLayout({
   children,
@@ -48,11 +53,10 @@ export default function RootLayout({
       lang="en"
       className={cx(
         'text-black bg-white dark:text-white dark:bg-black',
-        GeistSans.variable,
-        GeistMono.variable
+        jetbrainsMono.variable
       )}
     >
-      <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
+      <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto font-mono">
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
           <Navbar />
           {children}
