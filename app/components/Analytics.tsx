@@ -4,12 +4,14 @@ import { useEffect } from 'react'
 import Script from 'next/script'
 import { GA_TRACKING_ID, trackPageView } from '../lib/analytics'
 import { usePathname, useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
 interface AnalyticsProviderProps {
   children: React.ReactNode
 }
 
-export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
+// Separate component for search params tracking
+function PageViewTracker() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -20,6 +22,10 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
     trackPageView(url, document.title)
   }, [pathname, searchParams])
 
+  return null
+}
+
+export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
   if (!GA_TRACKING_ID) {
     return <>{children}</>
   }
@@ -74,6 +80,9 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
           `,
         }}
       />
+      <Suspense fallback={null}>
+        <PageViewTracker />
+      </Suspense>
       {children}
     </>
   )
