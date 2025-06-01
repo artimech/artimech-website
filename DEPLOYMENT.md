@@ -1,128 +1,151 @@
-# Artimech - Deployment Guide
+# Artimech Website - Cloud Run Deployment Guide
 
-This guide walks you through deploying the Artimech website to Google Cloud Run using GitHub Actions.
+This guide will help you deploy the Artimech website to Google Cloud Run using GitHub Actions with Workload Identity Federation (secure, keyless authentication).
 
 ## Prerequisites
 
-1. **Google Cloud Project**: You need a Google Cloud project with billing enabled
-2. **GitHub Repository**: Your code should be in a GitHub repository
-3. **Google Cloud CLI**: Install `gcloud` CLI for local setup
+- Google Cloud Platform account with billing enabled
+- GitHub repository with admin access
+- Google Cloud CLI installed locally
 
-## Setup Steps
+## GCP Project Setup ✅ COMPLETED
 
-### 1. Google Cloud Setup
+**Project ID**: `artimech-website`  
+**Billing Account**: Linked to Tryvinci account  
+**Service Account**: `artimech-deployer@artimech-website.iam.gserviceaccount.com`
 
-```bash
-# Set your project ID
-export PROJECT_ID="your-project-id"
-gcloud config set project $PROJECT_ID
+### APIs Enabled ✅
+- Cloud Run API
+- Artifact Registry API
+- Cloud Build API
+- Container Registry API
 
-# Enable required APIs
-gcloud services enable run.googleapis.com
-gcloud services enable cloudbuild.googleapis.com
-gcloud services enable artifactregistry.googleapis.com
+### Resources Created ✅
+- **Artifact Registry**: `us-central1-docker.pkg.dev/artimech-website/artimech-website`
+- **Workload Identity Pool**: `github-pool`
+- **Workload Identity Provider**: `github-provider` (restricted to `artimech` organization)
+- **Service Account**: `artimech-deployer` with proper IAM roles
 
-# Create Artifact Registry repository
-gcloud artifacts repositories create artimech-website \
-    --repository-format=docker \
-    --location=us-central1 \
-    --description="Docker repository for Artimech website"
-```
+## GitHub Secrets Configuration
 
-### 2. Service Account Setup
+You need to add these secrets to your GitHub repository at:
+https://github.com/artimech/artimech-website/settings/secrets/actions
 
-```bash
-# Create service account
-gcloud iam service-accounts create github-actions \
-    --description="Service account for GitHub Actions" \
-    --display-name="GitHub Actions"
+### Required Secrets:
 
-# Grant necessary permissions
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member="serviceAccount:github-actions@$PROJECT_ID.iam.gserviceaccount.com" \
-    --role="roles/run.admin"
-
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member="serviceAccount:github-actions@$PROJECT_ID.iam.gserviceaccount.com" \
-    --role="roles/storage.admin"
-
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member="serviceAccount:github-actions@$PROJECT_ID.iam.gserviceaccount.com" \
-    --role="roles/artifactregistry.admin"
-
-# Generate service account key
-gcloud iam service-accounts keys create github-actions-key.json \
-    --iam-account=github-actions@$PROJECT_ID.iam.gserviceaccount.com
-```
-
-### 3. GitHub Secrets Setup
-
-In your GitHub repository, go to **Settings** → **Secrets and variables** → **Actions** and add these secrets:
-
-- `GCP_PROJECT_ID`: Your Google Cloud project ID
-- `GCP_SA_KEY`: Contents of the `github-actions-key.json` file (copy the entire JSON)
-
-### 4. Deploy
-
-1. Push your code to the `main` branch
-2. GitHub Actions will automatically:
-   - Build the Docker image
-   - Push it to Google Artifact Registry
-   - Deploy it to Cloud Run
-
-### 5. Access Your Website
-
-After deployment, you'll get a Cloud Run URL like:
-```
-https://artimech-website-xxxxx-uc.a.run.app
-```
-
-## Custom Domain Setup (Optional)
-
-To use your own domain:
-
-1. **Map domain in Cloud Run**:
-   ```bash
-   gcloud run domain-mappings create \
-       --service=artimech-website \
-       --domain=yourdomain.com \
-       --region=us-central1
+1. **`WIF_PROVIDER`**
+   ```
+   projects/888261113238/locations/global/workloadIdentityPools/github-pool/providers/github-provider
    ```
 
-2. **Update DNS**: Add the provided DNS records to your domain registrar
+2. **`WIF_SERVICE_ACCOUNT`**
+   ```
+   artimech-deployer@artimech-website.iam.gserviceaccount.com
+   ```
 
-## Environment Variables
+## How It Works
 
-If you need environment variables, add them to the GitHub Actions workflow or Cloud Run service:
+1. **Push to main branch** triggers the GitHub Actions workflow
+2. **Workload Identity Federation** authenticates GitHub Actions to GCP (no keys needed!)
+3. **Docker build** creates container image from your Next.js app
+4. **Artifact Registry** stores the container image
+5. **Cloud Run** deploys the container with automatic scaling
 
+## Deployment Process
+
+### Automatic Deployment
+Every push to the `main` branch automatically triggers deployment.
+
+### Manual Deployment
+You can trigger deployment manually from GitHub Actions tab.
+
+### First Deployment
 ```bash
-gcloud run services update artimech-website \
-    --set-env-vars="NODE_ENV=production" \
-    --region=us-central1
+git add .
+git commit -m "Deploy to Cloud Run"
+git push origin main
 ```
 
-## Monitoring
+## Monitoring & Management
 
-- **Logs**: `gcloud run logs read --service=artimech-website --region=us-central1`
-- **Metrics**: Check the Cloud Run console for performance metrics
+### View Deployment Status
+- GitHub Actions: https://github.com/artimech/artimech-website/actions
+- Cloud Run Console: https://console.cloud.google.com/run/detail/us-central1/artimech-website/revisions?project=artimech-website
+
+### View Logs
+```bash
+gcloud run services logs read artimech-website --region=us-central1 --project=artimech-website
+```
+
+### Check Service Status
+```bash
+gcloud run services describe artimech-website --region=us-central1 --project=artimech-website
+```
+
+## Configuration
+
+The deployment is configured with:
+- **CPU**: 1 vCPU
+- **Memory**: 512Mi
+- **Port**: 3000
+- **Scaling**: 0-10 instances
+- **Authentication**: Public (allow unauthenticated)
+
+## Custom Domain Setup
+
+1. **Verify domain ownership** in Google Cloud Console
+2. **Map custom domain** to Cloud Run service:
+   ```bash
+   gcloud run domain-mappings create --service=artimech-website --domain=yourdomain.com --region=us-central1 --project=artimech-website
+   ```
+3. **Update DNS records** as instructed by Google Cloud
 
 ## Cost Optimization
 
-Cloud Run only charges for actual usage:
-- First 2 million requests per month are free
-- CPU allocation: 1 vCPU (adjust based on needs)
-- Memory: 512 MiB (adjust based on needs)
-- Max instances: 100 (can be reduced to control costs)
+Cloud Run pricing:
+- **CPU**: $0.00002400 per vCPU-second
+- **Memory**: $0.00000250 per GiB-second
+- **Requests**: $0.40 per million requests
+- **Free Tier**: 2 million requests per month
+
+Expected monthly cost for low-traffic website: **$5-15**
+
+## Security Features
+
+✅ **Workload Identity Federation** - No service account keys stored  
+✅ **Least Privilege IAM** - Service account has minimal required permissions  
+✅ **Repository Restriction** - Only `artimech` organization can deploy  
+✅ **HTTPS Enforced** - All traffic encrypted in transit  
+✅ **Container Security** - Non-root user, minimal base image
 
 ## Troubleshooting
 
-1. **Build failures**: Check GitHub Actions logs
-2. **Runtime errors**: Check Cloud Run logs
-3. **Permission issues**: Verify service account permissions
-4. **Domain issues**: Verify DNS settings
+### Build Failures
+1. Check GitHub Actions logs
+2. Verify Docker build locally:
+   ```bash
+   docker build -t test .
+   ```
 
-## Security Notes
+### Deployment Failures
+1. Check IAM permissions
+2. Verify Workload Identity Federation setup
+3. Check Cloud Run service logs
 
-- Service account key is sensitive - keep it secure
-- Enable Cloud Armor for DDoS protection if needed
-- Use HTTPS-only (enabled by default on Cloud Run) 
+### Runtime Errors
+1. Check Cloud Run logs in GCP Console
+2. Verify environment variables
+3. Test container locally:
+   ```bash
+   docker run -p 3000:3000 test
+   ```
+
+## Support
+
+- **GitHub Issues**: https://github.com/artimech/artimech-website/issues
+- **Cloud Run Documentation**: https://cloud.google.com/run/docs
+- **Next.js Documentation**: https://nextjs.org/docs
+
+---
+
+**Note**: This setup uses Workload Identity Federation for enhanced security. No service account keys are stored in GitHub, making it much more secure than traditional approaches. 
