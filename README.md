@@ -2,6 +2,10 @@
 
 **Intelligent Engineering. We build AI/ML systems that work.**
 
+A modern AI/ML engineering studio website built with Next.js 14.
+
+🚀 **Status**: Deploying to Google Cloud Run...
+
 Modern Next.js website for Artimech - an AI/ML engineering studio based in San Francisco, specializing in complex engineering challenges for data-intensive enterprises.
 
 ## 🌟 Features
