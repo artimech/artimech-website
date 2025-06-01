@@ -1,0 +1,156 @@
+# Artimech Website Development Rules
+
+## Project Overview
+- Next.js 14 website for Artimech AI/ML engineering studio
+- Deployed on Google Cloud Run with custom domain artimech.com
+- Blog system with MDX posts showcasing technical expertise
+
+## Code Style & Architecture
+- TypeScript-first development
+- Tailwind CSS for styling
+- Component-driven architecture in /src/components
+- Blog posts in MDX format in /src/content/blog
+- JetBrains Mono font for technical aesthetic
+
+## Deployment & Infrastructure
+- Docker containerization for Cloud Run
+- GitHub Actions CI/CD pipeline
+- Workload Identity Federation for secure deployment
+- Custom domain with SSL via Google-managed certificates
+
+## Analytics & SEO Automation System
+
+### Phase 1: Google Analytics 4 Implementation
+**Objective**: Comprehensive traffic monitoring and user behavior analysis
+
+**Implementation Plan**:
+- Install GA4 with enhanced ecommerce tracking
+- Custom events for technical content engagement:
+  - Code snippet copy events
+  - Blog post reading time
+  - Technical diagram interactions
+  - Contact form submissions
+- Custom dimensions:
+  - User technical background (inferred from behavior)
+  - Content category engagement
+  - Geographic market segments
+- Conversion funnels:
+  - Blog → Contact pipeline
+  - Technical content → Service inquiry
+  - Geographic performance by market
+
+**Files to Create/Modify**:
+- `src/lib/analytics.ts` - GA4 configuration and custom events
+- `src/components/Analytics.tsx` - Analytics provider component
+- `src/hooks/useAnalytics.ts` - Custom analytics hooks
+- Environment variables for GA4 tracking ID
+
+### Phase 2: Automated SEO Optimization
+**Objective**: Dynamic SEO that adapts based on performance data
+
+**Technical SEO Framework**:
+- **Meta Tags Automation**:
+  - Dynamic title generation based on content performance
+  - Auto-optimized descriptions using GPT-4 for top-performing content
+  - Technical keyword injection based on trending ML/AI terms
+- **Schema.org Structured Data**:
+  - Organization schema for Artimech
+  - Article schema for blog posts
+  - Service schema for ML engineering offerings
+  - FAQ schema for common technical questions
+- **Performance Monitoring**:
+  - Core Web Vitals tracking with automated alerts
+  - Lighthouse CI integration in GitHub Actions
+  - Page speed optimization recommendations
+
+**Files to Implement**:
+- `src/lib/seo/metaGenerator.ts` - Dynamic meta tag generation
+- `src/lib/seo/structuredData.ts` - JSON-LD schema generation
+- `src/lib/seo/performance.ts` - SEO performance tracking
+- `src/components/SEO/` - SEO component library
+- `.github/workflows/lighthouse-ci.yml` - Performance monitoring
+
+### Phase 3: Geographic Intelligence System
+**Objective**: Location-aware optimization and market analysis
+
+**GEO Features**:
+- **Geographic Content Adaptation**:
+  - Time zone aware content scheduling
+  - Regional ML/AI market trend integration
+  - Localized case studies and examples
+- **Market Intelligence**:
+  - Geographic conversion rate optimization
+  - Regional competition analysis
+  - Local SEO for target markets (SF Bay Area, NYC, London)
+- **Technical Implementation**:
+  - Edge computing optimization via Cloud Run regions
+  - Geographic A/B testing for content variants
+  - Regional performance dashboards
+
+**Implementation Stack**:
+- `src/lib/geo/` - Geographic intelligence library
+- `src/lib/geo/marketAnalysis.ts` - Market trend analysis
+- `src/lib/geo/contentAdapter.ts` - Location-based content
+- `src/components/GeoOptimizer.tsx` - Geographic optimization component
+
+### Phase 4: Automated Reporting & Optimization
+**Objective**: Self-improving system with minimal manual intervention
+
+**Automation Features**:
+- **Weekly SEO Health Reports**:
+  - Automated Lighthouse audits
+  - Keyword ranking changes
+  - Technical SEO issue detection
+  - Content performance analysis
+- **Smart Content Recommendations**:
+  - High-performing content expansion suggestions
+  - Technical topic trending analysis
+  - Optimal publishing time recommendations
+- **Performance Alerts**:
+  - Core Web Vitals degradation alerts
+  - Traffic anomaly detection
+  - Conversion rate drop notifications
+
+**Integration Points**:
+- Google Search Console API for ranking data
+- Google Analytics API for traffic analysis
+- GitHub Actions for automated reporting
+- Slack/Discord webhooks for alert notifications
+
+### Phase 5: Advanced ML-Powered SEO
+**Objective**: Leverage AI/ML for competitive SEO advantage
+
+**ML Features**:
+- **Content Optimization AI**:
+  - GPT-4 powered meta description optimization
+  - Technical content readability analysis
+  - Semantic keyword expansion
+- **Predictive Analytics**:
+  - Traffic forecasting models
+  - Content performance prediction
+  - Market trend anticipation
+- **Competitive Intelligence**:
+  - Automated competitor content analysis
+  - Technical differentiation opportunities
+  - Market positioning optimization
+
+**Technical Implementation**:
+- `src/lib/ml/contentOptimizer.ts` - AI-powered content optimization
+- `src/lib/ml/predictiveAnalytics.ts` - Traffic and performance forecasting
+- `src/lib/ml/competitorAnalysis.ts` - Automated competitive intelligence
+
+### Monitoring & Success Metrics
+- **Traffic Growth**: 50% increase in organic traffic within 6 months
+- **Technical Engagement**: 30% increase in code snippet interactions
+- **Geographic Expansion**: 25% traffic from target international markets
+- **SEO Performance**: Top 3 rankings for target ML/AI engineering keywords
+- **Conversion Optimization**: 40% improvement in blog-to-contact pipeline
+
+### Implementation Timeline
+- **Week 1-2**: GA4 implementation and basic event tracking
+- **Week 3-4**: SEO automation framework and structured data
+- **Week 5-6**: Geographic intelligence system
+- **Week 7-8**: Automated reporting and optimization
+- **Week 9-12**: ML-powered features and advanced analytics
+
+This system positions Artimech as a technically sophisticated organization that practices what it preaches in AI/ML engineering, using advanced analytics and automation for its own digital presence. 
