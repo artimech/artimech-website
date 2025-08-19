@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Proposal: AI-Powered Adjudication Co-pilot for Presolv360</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #18181b;
+        }
+        .section-title {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #18181b;
+        }
+        .diagram-container {
+            background-color: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 2rem;
+        }
+        .diagram-box {
+            border: 1px solid #d1d5db;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #18181b;
+        }
+        .diagram-box-alt {
+            background-color: #f4f4f5;
+            border-color: #e5e7eb;
+        }
+        .diagram-box-positive {
+            background-color: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+        .diagram-box-negative {
+            background-color: #fde8e8;
+            border-color: #fca5a5;
+        }
+        .diagram-arrow {
+            stroke: #18181b;
+            stroke-width: 2.2;
+            marker-end: url(#arrowhead);
+        }
+        .diagram-arrow-feedback {
+            stroke: #ef4444;
+            stroke-width: 2.5;
+            stroke-dasharray: 5, 5;
+            marker-end: url(#arrowhead-feedback);
+        }
+        .diagram-arrow-positive {
+            stroke: #22c55e;
+            stroke-width: 2.2;
+            marker-end: url(#arrowhead-positive);
+        }
+        .cost-card {
+            background-color: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="max-w-5xl mx-auto p-6 sm:p-8 lg:p-12 bg-white shadow-xl my-8 rounded-lg">
+        
+        <!-- Header -->
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-bold text-gray-900">Project Proposal</h1>
+            <p class="text-2xl text-indigo-600 mt-2">Adjudication Co-pilot</p>
+            <p class="text-sm text-gray-500 mt-3">Prepared for Presolv360 | June 30, 2025</p>
+        </header>
+
+        <!-- 1. Executive Summary -->
+        <section class="mb-12 bg-indigo-50 p-6 rounded-lg">
+            <h2 class="section-title">1. Executive Summary</h2>
+            <p class="text-gray-700 leading-relaxed">
+                This proposal aims to address the manual and time-consuming process of dispute adjudication at Presolv360. The project involves developing an Adjudication Co-pilot, an AI system designed to automate case summarization and draft generation, accommodating high volumes and diverse submission formats. The system will incorporate a Human-in-the-Loop workflow to enhance efficiency. The estimated cost is ₹28,00,000 for creating a secure and scalable solution to improve operational efficiency.
+            </p>
+        </section>
+
+        <!-- 2. Analysis of the Core Operational Challenge -->
+        <section class="mb-12">
+            <h2 class="section-title">2. Analysis of the Core Operational Challenge</h2>
+            <p class="text-gray-600 leading-relaxed mb-4">
+                Handling over 20,000 disputes monthly is a testament to Presolv360's market leadership, but it also exposes a critical vulnerability. The current manual process is not just a workflow issue; it is a strategic limiter on growth, profitability, and service quality.
+            </p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
+                    <h3 class="font-semibold text-red-800">Operational Drag</h3>
+                    <p class="text-sm text-red-700">The need to manually process diverse inputs (emails, scans with OCR, images, multi-lingual text) consumes thousands of hours, directly increasing operational cost per case and creating significant backlogs (e.g., the current 2,600+ pending awards).</p>
+                </div>
+                <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
+                    <h3 class="font-semibold text-red-800">Scalability Ceiling</h3>
+                    <p class="text-sm text-red-700">Onboarding new enterprise clients and higher case volumes is constrained by the linear scalability of the legal team. True growth requires decoupling case volume from manual effort, which the current system prevents.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. The Solution: Human-in-the-Loop AI Co-pilot -->
+        <section class="mb-12">
+            <h2 class="section-title">3. The Solution: Human-in-the-Loop AI Co-pilot</h2>
+            <p class="text-gray-600 leading-relaxed mb-6">We will build an AI Co-pilot designed to augment, not replace, your expert arbitrators. The system automates the repetitive, time-consuming tasks, freeing up arbitrators to focus on high-value work requiring human judgment.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Before Diagram -->
+                <div class="diagram-container">
+                    <h3 class="text-lg font-semibold text-center mb-6">Before: Manual Workflow</h3>
+                    <svg width="100%" height="450" viewBox="0 0 400 450" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', sans-serif;">
+                        <defs>
+                            <marker id="arrowhead-before" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#18181b"/></marker>
+                        </defs>
+                        <!-- Nodes -->
+                        <g transform="translate(100, 30)">
+                            <rect x="0" y="0" width="200" height="60" rx="8" fill="#f4f4f5" stroke="#e5e7eb"/>
+                            <text x="100" y="38" text-anchor="middle" font-size="14" font-weight="600">Case Submissions</text>
+                        </g>
+                        <path d="M200,90 V120" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-before)"/>
+                        
+                        <g transform="translate(50, 120)">
+                            <rect x="0" y="0" width="300" height="80" rx="8" fill="#fef2f2" stroke="#fecaca"/>
+                            <text x="150" y="35" text-anchor="middle" font-size="14" font-weight="600" fill="#991b1b">Manual Review & Summarization</text>
+                            <text x="150" y="60" text-anchor="middle" font-size="12" font-weight="700" fill="#b91c1c">BOTTLENECK</text>
+                        </g>
+                        <path d="M200,200 V230" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-before)"/>
+
+                        <g transform="translate(75, 230)">
+                            <rect x="0" y="0" width="250" height="60" rx="8" fill="#f4f4f5" stroke="#e5e7eb"/>
+                            <text x="125" y="38" text-anchor="middle" font-size="14" font-weight="600">Manual Draft Generation</text>
+                        </g>
+                        <path d="M200,290 V320" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-before)"/>
+
+                        <g transform="translate(100, 320)">
+                            <rect x="0" y="0" width="200" height="60" rx="8" fill="#f4f4f5" stroke="#e5e7eb"/>
+                            <text x="100" y="38" text-anchor="middle" font-size="14" font-weight="600">Final Award</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- After Diagram -->
+                <div class="diagram-container">
+                    <h3 class="text-lg font-semibold text-center mb-6">After: AI-Powered Workflow</h3>
+                    <svg width="100%" height="450" viewBox="0 0 500 450" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', sans-serif;">
+                        <defs>
+                            <marker id="arrowhead-after" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#18181b"/></marker>
+                             <marker id="arrowhead-feedback-after" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#ef4444"/></marker>
+                            <marker id="arrowhead-positive-after" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#22c55e"/></marker>
+                        </defs>
+                        <!-- Nodes -->
+                        <g transform="translate(30, 30)">
+                            <rect x="0" y="0" width="200" height="60" rx="8" fill="#f4f4f5" stroke="#e5e7eb"/>
+                            <text x="100" y="38" text-anchor="middle" font-weight="600">Case Submissions</text>
+                        </g>
+                        <g transform="translate(270, 30)">
+                            <rect x="0" y="0" width="200" height="60" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+                            <text x="100" y="38" text-anchor="middle" font-weight="600">AI Pre-processing</text>
+                        </g>
+                        <path d="M230,60 H270" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-after)"/>
+
+                        <path d="M370,90 V150" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-after)"/>
+                        <g transform="translate(160, 150)">
+                            <rect x="0" y="0" width="310" height="60" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+                            <text x="155" y="38" text-anchor="middle" font-weight="600">AI Summarization & Draft Generation</text>
+                        </g>
+
+                        <path d="M160,180 H80 V240 H160" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-after)"/>
+                        <g transform="translate(160, 240)">
+                            <rect x="0" y="0" width="310" height="60" rx="8" fill="#fff" stroke="#d1d5db"/>
+                            <text x="155" y="38" text-anchor="middle" font-weight="600">Arbitrator Review & Approval</text>
+                        </g>
+                        
+                        <path d="M315,300 V340" stroke="#22c55e" stroke-width="2" fill="none" marker-end="url(#arrowhead-positive-after)"/>
+                        <g transform="translate(160, 340)">
+                            <rect x="0" y="0" width="310" height="60" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+                            <text x="155" y="38" text-anchor="middle" font-weight="600">Finalized Award Issued</text>
+                        </g>
+
+                        <!-- Feedback Loop -->
+                        <path d="M160,270 H50 V180 H160" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#arrowhead-feedback-after)"/>
+                        <text x="40" y="225" font-size="12" fill="#ef4444">Feedback/Rework</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. AI/ML Pipeline: A Technical Deep-Dive -->
+        <section class="mb-12">
+            <h2 class="section-title">4. AI/ML Pipeline: A Technical Deep-Dive</h2>
+            <p class="text-gray-600 leading-relaxed mb-6">At the core of the AI Co-pilot is a state-of-the-art Retrieval-Augmented Generation (RAG) pipeline. This system doesn't just generate text; it first retrieves relevant, factual context from your historical data to produce summaries and drafts that are deeply grounded in Presolv360's specific case history and legal standards.</p>
+            <div class="diagram-container">
+                <h3 class="text-lg font-semibold text-center mb-6">Retrieval-Augmented Generation (RAG) Architecture</h3>
+            
+                <svg width="100%" height="700" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', sans-serif;">
+                    <defs>
+                       <marker id="arrowhead-tech" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#18181b"></polygon></marker>
+                       <marker id="arrowhead-tech-green" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#10b981"></polygon></marker>
+                   </defs>
+                   
+                   <!-- Phase 1: Ingestion & Embedding (Knowledge Base Creation) -->
+                   <rect x="20" y="20" width="1160" height="230" rx="10" fill="#f9fafb" stroke="#f3f4f6"></rect>
+                   <text x="600" y="50" text-anchor="middle" font-weight="600" font-size="16">PHASE 1: KNOWLEDGE BASE CREATION (OFFLINE, PERIODIC)</text>
+
+                   <g transform="translate(40, 100)">
+                       <rect x="0" y="0" width="200" height="100" rx="8" fill="#fff" stroke="#d1d5db"></rect>
+                       <path d="M20,35 h20 v25 h-20Z M25,40 h10 M25,45 h10 M25,50 h5" stroke="#18181b" stroke-width="1.5" fill="none"></path>
+                       <text x="60" y="50" font-size="14">Raw Data</text>
+                       <text x="60" y="70" font-size="12" fill="#6b7280">Emails, PDFs, Scans</text>
+                   </g>
+                   <path d="M240,150 H280" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-tech)"></path>
+
+                   <g transform="translate(280, 100)">
+                       <rect x="0" y="0" width="220" height="100" rx="8" fill="#fff" stroke="#d1d5db"></rect>
+                       <path d="M25,55 a10,10 0 1,1 0,-20 a10,10 0 1,1 0,20 M25,32 v-5 m0,26 v-5 m-8,-10 h-5 m26,0 h-5" stroke="#18181b" stroke-width="1.5" fill="none"></path>
+                       <text x="60" y="45" font-size="14">1. Pre-processing</text>
+                       <text x="60" y="65" font-size="12" fill="#6b7280">OCR, Anonymization,</text>
+                       <text x="60" y="80" font-size="12" fill="#6b7280">Text Chunking</text>
+                   </g>
+                   <path d="M500,150 H540" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-tech)"></path>
+                   
+                   <g transform="translate(540, 100)">
+                       <rect x="0" y="0" width="220" height="100" rx="8" fill="#fff" stroke="#d1d5db"></rect>
+                       <path d="M20,55 C30,45 40,45 50,55 S60,65 70,55" stroke="#18181b" stroke-width="1.5" fill="none"></path>
+                       <rect x="15" y="30" width="30" height="25" rx="3" stroke="#18181b" stroke-width="1.5" fill="none"></rect>
+                       <text x="60" y="50" font-size="14">2. Embedding Model</text>
+                       <text x="60" y="70" font-size="12" fill="#6b7280">(e.g., S-BERT)</text>
+                   </g>
+                   <path d="M760,150 H800" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-tech)"></path>
+
+                   <g transform="translate(800, 100)">
+                       <rect x="0" y="0" width="380" height="100" rx="8" fill="#f0fdf4" stroke="#bbf7d0"></rect>
+                       <path d="M20,35 a5,5 0 1,0 10,0 a5,5 0 1,0-10,0 Z M40,35 a5,5 0 1,0 10,0 a5,5 0 1,0-10,0 Z M30,55 a5,5 0 1,0 10,0 a5,5 0 1,0-10,0Z M25,40 l5,10 M45,40 l-5,10" stroke="#18181b" stroke-width="1.5" fill="none"></path>
+                       <text x="65" y="50" font-size="14" font-weight="600">3. Knowledge Graph (Vector DB)</text>
+                       <text x="65" y="70" font-size="12" fill="#6b7280">Central repository of searchable knowledge</text>
+                   </g>
+                   
+                   <!-- Phase 2: Inference (Real-time for each case) -->
+                   <rect x="20" y="280" width="1160" height="400" rx="10" fill="#f9fafb" stroke="#f3f4f6"></rect>
+                   <text x="600" y="310" text-anchor="middle" font-weight="600" font-size="16">PHASE 2: REAL-TIME INFERENCE PIPELINE (PER-CASE BASIS)</text>
+                   
+                   <g transform="translate(40, 380)">
+                       <rect x="0" y="0" width="280" height="80" rx="8" fill="#fff" stroke="#d1d5db"></rect>
+                       <path d="M20,45 h20 v20 h-20Z M35,45 l-5,5" stroke="#18181b" stroke-width="1.5" fill="none"></path>
+                       <text x="55" y="45" font-size="14" font-weight="600">1. Process &amp; Embed New Case</text>
+                       <text x="55" y="65" font-size="12" fill="#6b7280">Case details are vectorized for search.</text>
+                   </g>
+
+                   <path d="M180,460 V520" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-tech)"></path>
+                   
+                   <g transform="translate(40, 520)">
+                       <rect x="0" y="0" width="280" height="80" rx="8" fill="#f0fdf4" stroke="#bbf7d0"></rect>
+                       <path d="M25,65 v-20 M15,55 h20" stroke="#18181b" stroke-width="1.5" fill="none"></path>
+                       <text x="55" y="45" font-size="14" font-weight="600">2. Augment Prompt</text>
+                       <text x="55" y="65" font-size="12" fill="#6b7280">Original Query + Retrieved Context</text>
+                   </g>
+                   
+                   <path d="M180,380 V220 H850" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-tech)"></path>
+                   <text x="500" y="240" font-size="12" fill="#4b5563">Similarity Search</text>
+
+                   <path d="M900,200 V480 H220" stroke="#10b981" stroke-width="2.5" fill="none" marker-end="url(#arrowhead-tech-green)"></path>
+                   <text x="500" y="500" font-size="12" font-weight="600" fill="#10b981">Retrieved Context</text>
+                   
+                   <path d="M320,560 H380" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-tech)"></path>
+
+                   <g transform="translate(380, 520)">
+                       <rect x="0" y="0" width="360" height="80" rx="8" fill="#eef2ff" stroke="#c7d2fe"></rect>
+                       <path d="M25,60 l2,5 l5,2 l-5,2 l-2,5 l-2,-5 l-5,-2 l5,-2 Z" stroke="#4338ca" stroke-width="1.5" fill="none"></path>
+                       <text x="55" y="45" font-size="14" font-weight="600">3. LLM Inference (e.g., Llama 3)</text>
+                       <text x="55" y="65" font-size="12" fill="#4338ca">Generates summary and draft award.</text>
+                   </g>
+                   
+                   <path d="M740,560 H800" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-tech)"></path>
+
+                   <g transform="translate(800, 520)">
+                       <rect x="0" y="0" width="280" height="80" rx="8" fill="#fff" stroke="#d1d5db"></rect>
+                        <path d="M20,35 h10 v20 h-10Z M50,35 h-10 v20 h10" stroke="#18181b" stroke-width="1.5" fill="none"></path>
+                        <text x="70" y="45" font-size="14">4. Summary / Draft Award</text>
+                        <text x="70" y="65" font-size="12" fill="#6b7280">Ready for Arbitrator Review</text>
+                   </g>
+               </svg>
+            </div>
+        </section>
+
+        <!-- 5. The Continuous Learning Loop -->
+        <section class="mb-12">
+            <h2 class="section-title">5. The Continuous Learning Loop Architecture</h2>
+            <p class="text-gray-600 leading-relaxed mb-6">The AI Co-pilot is a dynamic system designed for continuous improvement. Each finalized award is fed back to refine the model's knowledge base, creating a powerful compounding return on investment and ensuring the AI adapts to new patterns and case types over time.</p>
+            <div class="diagram-container">
+                 <h3 class="text-lg font-semibold text-center mb-6">Feedback Mechanism for Model Improvement</h3>
+                 <svg width="800" height="450" viewBox="0 0 1000 450" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', sans-serif;">
+                    <defs>
+                        <marker id="arrowhead-loop" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 10 3.5, 0 7" fill="#18181b"/></marker>
+                    </defs>
+                    
+                    <!-- Nodes -->
+                    <g transform="translate(410, 30)">
+                        <rect x="0" y="0" width="180" height="80" rx="8" fill="#f4f4f5" stroke="#e5e7eb"/>
+                        <text x="90" y="35" text-anchor="middle" font-size="14" font-weight="600">1. AI Generates</text>
+                        <text x="90" y="55" text-anchor="middle" font-size="12" fill="#6b7280">Draft Award</text>
+                    </g>
+                    <g transform="translate(700, 180)">
+                        <rect x="0" y="0" width="180" height="80" rx="8" fill="#fff" stroke="#d1d5db"/>
+                        <text x="90" y="35" text-anchor="middle" font-size="14" font-weight="600">2. Arbitrator</text>
+                        <text x="90" y="55" text-anchor="middle" font-size="12" fill="#6b7280">Finalizes Award</text>
+                    </g>
+                    <g transform="translate(410, 330)">
+                        <rect x="0" y="0" width="180" height="80" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+                        <text x="90" y="35" text-anchor="middle" font-size="14" font-weight="600">3. Final Award</text>
+                        <text x="90" y="55" text-anchor="middle" font-size="12" fill="#6b7280">Becomes Ground Truth</text>
+                    </g>
+                    <g transform="translate(120, 180)">
+                        <rect x="0" y="0" width="180" height="80" rx="8" fill="#f4f4f5" stroke="#e5e7eb"/>
+                        <text x="90" y="35" text-anchor="middle" font-size="14" font-weight="600">4. Knowledge Graph</text>
+                        <text x="90" y="55" text-anchor="middle" font-size="12" fill="#6b7280">Is Updated</text>
+                    </g>
+
+                    <!-- Curved Arrows for the Loop -->
+                    <path d="M590,70 Q680,100 700,180" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-loop)"/>
+                    <path d="M700,260 Q680,340 590,370" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-loop)"/>
+                    <path d="M410,370 Q320,340 300,260" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-loop)"/>
+                    <path d="M300,180 Q320,100 410,70" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-loop)"/>
+                 </svg>
+            </div>
+        </section>
+
+        <!-- 6. Core System Architecture -->
+        <section class="mb-12">
+            <h2 class="section-title">6. Core System Architecture</h2>
+            <p class="text-gray-600 leading-relaxed mb-6">The solution will be built as a secure, scalable, and modular service-oriented architecture within Presolv360's infrastructure, ensuring data privacy and robust performance.</p>
+            <div class="diagram-container">
+                <h3 class="text-lg font-semibold text-center mb-6">Service-Oriented Architecture</h3>
+                <svg width="800" height="500" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', sans-serif;">
+                     <defs>
+                        <marker id="arrowhead-arch" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#18181b"/></marker>
+                    </defs>
+
+                    <!-- Tier Labels -->
+                    <text x="30" y="85" text-anchor="middle" font-size="12" font-weight="600" fill="#6b7280" transform="rotate(-90, 30, 85)">PRESENTATION</text>
+                    <text x="30" y="245" text-anchor="middle" font-size="12" font-weight="600" fill="#6b7280" transform="rotate(-90, 30, 245)">APPLICATION</text>
+                    <text x="30" y="425" text-anchor="middle" font-size="12" font-weight="600" fill="#6b7280" transform="rotate(-90, 30, 425)">DATA</text>
+
+                    <!-- Tier 1: Presentation -->
+                    <g transform="translate(100, 50)">
+                        <rect x="0" y="0" width="850" height="70" rx="8" fill="#f4f4f5" stroke="#e5e7eb"/>
+                        <text x="425" y="40" text-anchor="middle" font-size="16" font-weight="600" fill="#18181b">Presolv360 Platform (Arbitrator UI)</text>
+                    </g>
+                    
+                    <!-- Arrow to App Tier -->
+                    <path d="M525,120 V160" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-arch)"/>
+
+                    <!-- Tier 2: Application -->
+                    <g transform="translate(100, 160)">
+                        <rect x="0" y="0" width="850" height="170" rx="8" fill="#f4f4f5" stroke="#e5e7eb"/>
+                        <text x="425" y="30" text-anchor="middle" font-size="16" font-weight="600" fill="#18181b">Secure API Gateway</text>
+                        
+                        <!-- Services within App Tier -->
+                        <g transform="translate(40, 70)">
+                           <rect x="0" y="0" width="240" height="70" rx="8" fill="#fff" stroke="#d1d5db"/>
+                           <text x="120" y="40" text-anchor="middle" font-size="14" font-weight="600">Ingestion Service</text>
+                        </g>
+                        <g transform="translate(305, 70)">
+                           <rect x="0" y="0" width="240" height="70" rx="8" fill="#fff" stroke="#d1d5db"/>
+                           <text x="120" y="40" text-anchor="middle" font-size="14" font-weight="600">AI Inference Service</text>
+                        </g>
+                        <g transform="translate(570, 70)">
+                           <rect x="0" y="0" width="240" height="70" rx="8" fill="#fff" stroke="#d1d5db"/>
+                           <text x="120" y="40" text-anchor="middle" font-size="14" font-weight="600">Output Service</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Arrow to Data Tier -->
+                    <path d="M525,330 V370" stroke="#18181b" stroke-width="2" fill="none" marker-end="url(#arrowhead-arch)"/>
+
+                    <!-- Tier 3: Data -->
+                    <g transform="translate(100, 370)">
+                         <rect x="0" y="0" width="850" height="100" rx="8" fill="#f4f4f5" stroke="#e5e7eb"/>
+                         <!-- Data Stores -->
+                         <g transform="translate(160, 15)">
+                            <rect x="0" y="0" width="280" height="70" rx="8" fill="#fff" stroke="#d1d5db"/>
+                            <text x="140" y="40" text-anchor="middle" font-size="14" font-weight="600">Raw Data Storage</text>
+                         </g>
+                         <g transform="translate(460, 15)">
+                            <rect x="0" y="0" width="280" height="70" rx="8" fill="#fff" stroke="#d1d5db"/>
+                            <text x="140" y="40" text-anchor="middle" font-size="14" font-weight="600">Vector Database</text>
+                         </g>
+                    </g>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 7. Data Security & Compliance -->
+        <section class="mb-12">
+            <h2 class="section-title">7. Data Security & Compliance</h2>
+            <p class="text-gray-600 leading-relaxed">Security is paramount. The entire solution is designed with a security-first approach to protect sensitive case data and comply with all regulatory requirements, including RBI guidelines.</p>
+            <ul class="list-disc list-inside text-gray-600 space-y-2 mt-4">
+                <li><strong>On-Premise/VPC Deployment:</strong> All training and deployment will occur within Presolv360's secure cloud environment. Sensitive data never leaves your control.</li>
+                <li><strong>Data Anonymization:</strong> A dedicated pre-processing step will be implemented to anonymize Personally Identifiable Information (PII) before training.</li>
+                <li><strong>Containerized Security:</strong> The AI model will be deployed in a hardened Docker container, isolating it from other systems and minimizing the attack surface.</li>
+                <li><strong>Indian Data Sovereignty:</strong> All infrastructure will be located within India to ensure full compliance with regulatory mandates.</li>
+            </ul>
+        </section>
+
+        <!-- 8. Projected Impact & ROI -->
+        <section class="mb-12">
+            <h2 class="section-title">8. Projected Impact & Return on Investment</h2>
+            <p class="text-gray-600 leading-relaxed mb-6">By automating the most time-consuming parts of the adjudication process, this solution acts as a force multiplier for your arbitrators.</p>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr>
+                        <th class="border-b-2 p-2 bg-gray-100 font-semibold">Metric</th>
+                        <th class="border-b-2 p-2 bg-green-50 text-green-800 font-semibold text-center">Conservative Projection</th>
+                        <th class="border-b-2 p-2 bg-blue-50 text-blue-800 font-semibold text-center">Aggressive Projection</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border-b p-3">Time Saved per Case</td>
+                        <td class="border-b p-3 text-center">40% - 50%</td>
+                        <td class="border-b p-3 text-center">60% - 75%</td>
+                    </tr>
+                    <tr>
+                        <td class="border-b p-3">Increase in Arbitrator Daily Throughput</td>
+                        <td class="border-b p-3 text-center">~2x</td>
+                        <td class="border-b p-3 text-center">~3x - 4x</td>
+                    </tr>
+                    <tr>
+                        <td class="border-b p-3">Overall Arbitrator Bandwidth Unlocked</td>
+                        <td class="border-b p-3 text-center">+80%</td>
+                        <td class="border-b p-3 text-center">+200%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 9. Project Phases, Timeline & Investment -->
+        <section class="mb-12">
+            <h2 class="section-title">9. Project Phases, Timeline & Investment</h2>
+            <div class="text-center mb-6">
+                <p class="text-gray-600">A rationalized, one-time project investment for a comprehensive end-to-end solution.</p>
+                <h3 class="text-2xl font-bold text-gray-800 mt-2">Total: ₹28,00,000 <span class="font-normal text-lg text-gray-600">(+ GST)</span></h3>
+                 <p class="text-indigo-600 font-semibold mt-1">Accelerated Timeline: 4 Weeks</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="cost-card text-center">
+                    <h3 class="text-lg font-semibold mb-2">Phase 1: Foundation & Fine-Tuning</h3>
+                    <p class="text-xs text-gray-500 mb-2">(Weeks 1-2)</p>
+                    <h4 class="text-2xl font-bold mb-2">₹18,00,000</h4>
+                    <p class="text-sm text-gray-500">Includes data analysis, pre-processing, GPU compute costs, and the core model fine-tuning.</p>
+                </div>
+                <div class="cost-card text-center">
+                    <h3 class="text-lg font-semibold mb-2">Phase 2: API Dev & Integration</h3>
+                     <p class="text-xs text-gray-500 mb-2">(Week 3)</p>
+                    <h4 class="text-2xl font-bold mb-2">₹6,00,000</h4>
+                    <p class="text-sm text-gray-500">Building the secure API, feedback loop mechanism, and structured output logic.</p>
+                </div>
+                <div class="cost-card text-center">
+                    <h3 class="text-lg font-semibold mb-2">Phase 3: Deployment & Handover</h3>
+                     <p class="text-xs text-gray-500 mb-2">(Week 4)</p>
+                    <h4 class="text-2xl font-bold mb-2">₹4,00,000</h4>
+                    <p class="text-sm text-gray-500">Production deployment, final UAT, documentation, and team training.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. Recurring Costs -->
+        <section class="mb-12">
+             <h2 class="section-title">10. Post-Deployment: Recurring Costs & Maintenance</h2>
+              <p class="text-gray-600 leading-relaxed">
+                Post-deployment, ongoing costs are limited to the cloud infrastructure required to run the model (inference) and periodic re-training to incorporate new data patterns.
+            </p>
+             <ul class="list-disc list-inside text-gray-600 space-y-2 mt-4">
+                <li><strong>Infrastructure Costs:</strong> Estimated at <span style="font-weight:600;">₹80,000 - ₹1,70,000 per month</span>, directly dependent on daily case volume. We will work with your team to optimize this for maximum efficiency.</li>
+                <li><strong>Optional Maintenance Retainer:</strong> We can provide an optional annual retainer for periodic model health checks, re-training, and ongoing support, to be discussed separately.</li>
+            </ul>
+        </section>
+
+        <!-- 11. Path Forward -->
+        <section>
+            <h2 class="section-title">11. Path Forward & Next Steps</h2>
+            <ul class="list-disc list-inside text-gray-600 space-y-2 leading-relaxed">
+                <li><strong>Internal Evaluation:</strong> Presolv360 to evaluate this strategic proposal.</li>
+                <li><strong>Data Collation:</strong> Presolv360's legal team to begin collating a representative sample of training data (approx. 1,000-2,000 varied cases).</li>
+                <li><strong>Compliance:</strong> Prepare and execute an NDA to ensure full data privacy before any data is handled.</li>
+                <li><strong>Project Kick-off:</strong> Upon approval, we can finalize commercials and schedule a formal project kick-off meeting.</li>
+            </ul>
+        </section>
+
+    </div>
+
+</body>
+</html>
