@@ -1,0 +1,131 @@
+---
+title: 'Mastering Data Quality for Production ML'
+publishedAt: '2025-06-12'
+summary: 'How poor data quality sabotages AI initiatives, and our framework for building reliable data pipelines that drive business value.'
+---
+
+In the rush to deploy AI models, many businesses overlook the foundation: data quality. We've seen sophisticated models fail spectacularly because of garbage-in, garbage-out dynamics. At Artimech, we've helped mid-sized companies transform their data pipelines from liability to competitive advantage.
+
+## The Data Quality Crisis
+
+Common issues we encounter:
+- **Inconsistent labeling**: Human annotators with varying interpretations
+- **Distribution shifts**: Training data that doesn't match production reality
+- **Missing values**: Handled with naive imputation that introduces bias
+- **Duplicates and outliers**: Silently degrading model performance
+
+One client, a retail analytics firm, had models drifting 15% in accuracy monthly due to unchecked data drift. Their "state-of-the-art" forecasting system was essentially guessing after three months.
+
+## Our Data Quality Framework
+
+We implement a systematic approach to data quality, treating it as an engineering discipline rather than an afterthought.
+
+### 1. Automated Validation Gates
+
+Every data ingestion point gets validation:
+
+```python
+from great_expectations import DataContext
+
+context = DataContext()
+
+# Define expectations
+expectation_suite = context.create_expectation_suite("retail_data_suite")
+expectation_suite.add_expectation(
+    ExpectationConfiguration(
+        expectation_type="expect_column_values_to_be_between",
+        kwargs={"column": "price", "min_value": 0, "max_value": 10000}
+    )
+)
+
+# Validate incoming data
+validation_result = context.validate(dataframe, expectation_suite)
+if not validation_result.success:
+    raise DataQualityError("Data failed validation")
+```
+
+This catches issues before they poison your training data.
+
+### 2. Drift Detection Pipeline
+
+Continuous monitoring for distribution shifts:
+
+```python
+import alibi_detect
+
+# Setup drift detector
+drift_detector = alibi_detect.DriftDetector(
+    X_ref=reference_data,
+    p_val=0.05,
+    return_p_val=True
+)
+
+# In production
+def check_for_drift(new_data):
+    drift_result = drift_detector.predict(new_data)
+    if drift_result['data']['is_drift']:
+        trigger_alert_and_retraining()
+        return False
+    return True
+```
+
+We reduced one client's model redeployments from monthly to quarterly.
+
+### 3. Active Learning for Labeling
+
+Instead of bulk labeling, we use active learning to prioritize:
+
+```python
+from modAL.models import ActiveLearner
+from modAL.uncertainty import uncertainty_sampling
+
+learner = ActiveLearner(
+    estimator=base_model,
+    query_strategy=uncertainty_sampling,
+    X_training=X_initial,
+    y_training=y_initial
+)
+
+# Query loop
+for _ in range(n_queries):
+    query_idx, query_inst = learner.query(X_pool)
+    human_label = get_human_label(query_inst)
+    learner.teach(X_pool[query_idx], human_label)
+```
+
+This cut labeling costs by 40% while improving accuracy.
+
+## Case Study: Supply Chain Forecasting
+
+A logistics company came to us with unreliable demand forecasts:
+
+- **Original setup**: CSV dumps from ERP system, manual cleaning, basic ML models
+- **Issues**: 28% error rate due to seasonal shifts and data inconsistencies
+- **Our intervention**:
+  1. Implemented validation gates on all data sources
+  2. Added drift detection with automated alerts
+  3. Built active learning pipeline for anomaly labeling
+
+**Results**:
+- Error rate: 28% → 9.2%
+- Data processing time: 4 hours → 15 minutes
+- Annual savings: $450k from better inventory management
+
+## Practical Tips
+
+- **Start small**: Validate one critical data source first
+- **Monitor everything**: Track data metrics like you track model metrics
+- **Involve domain experts**: They spot quality issues ML can't
+- **Automate remediation**: Don't just detect—fix where possible
+
+## Why It Matters for Business
+
+Clean data isn't a nice-to-have; it's the difference between AI that drains resources and AI that drives revenue. We've seen companies waste millions on models built on shaky foundations.
+
+At Artimech, we build data pipelines that scale with your business.
+
+---
+
+*Struggling with data quality in your ML projects? Let's build a solid foundation together. [Let's talk](/meet).* 
+
+___
